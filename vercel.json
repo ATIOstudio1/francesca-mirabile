@@ -8,6 +8,7 @@
     {"src": "Index/**", "use": "@vercel/static"}
   ],
   "routes": [
+    {"src": "^/$", "dest": "/Index.html"},
     {"src": "/(.*)", "dest": "/$1"}
   ]
 }
