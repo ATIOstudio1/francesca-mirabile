@@ -6,7 +6,7 @@ import pageAbout from './schemas/pageAbout'
 import siteSettings from './schemas/siteSettings'
 import tag from './schemas/tag'
 
-const projectId = process.env.SANITY_PROJECT_ID || '<PROJECT_ID>'
+const projectId = process.env.SANITY_PROJECT_ID || 'y5t2piic'
 const dataset = process.env.SANITY_DATASET || 'production'
 const apiVersion = process.env.SANITY_API_VERSION || '2024-01-01'
 
