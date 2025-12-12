@@ -1,0 +1,7 @@
+.git/
+.git-data/
+node_modules/
+sanity/node_modules/
+sanity/.sanity-config/
+sanity/dist/
+.DS_Store
