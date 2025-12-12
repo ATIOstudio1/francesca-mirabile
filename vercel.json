@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "framework": "static",
+  "builds": [
+    {"src": "**/*.html", "use": "@vercel/static"},
+    {"src": "Asset/**", "use": "@vercel/static"},
+    {"src": "Font/**", "use": "@vercel/static"},
+    {"src": "img/**", "use": "@vercel/static"},
+    {"src": "Index/**", "use": "@vercel/static"}
+  ],
+  "routes": [
+    {"src": "/(.*)", "dest": "/$1"}
+  ]
+}
