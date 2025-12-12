@@ -1,6 +1,10 @@
 {
-  "extends": "sanity/tsconfig",
   "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["DOM", "ESNext"],
+    "moduleResolution": "Node",
+    "jsx": "react-jsx",
     "baseUrl": "."
   },
   "include": [
