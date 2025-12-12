@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archive — Francesca Mirabile</title>
+  <style>
+    @font-face {
+      font-family: "Helvetica Now Display";
+      src: url("./Font/HelveticaNowDisplay-Bold.woff") format("woff");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --bg: #ffffff;
+      --text: #0b0b0b;
+      --line: #cfcfcf;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Helvetica Now Display", Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      line-height: 1.2;
+      overflow: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      font-size: 12px;
+      padding: 3px;
+      z-index: 3;
+    }
+
+    .left-nav { display: flex; gap: 32px; align-items: center; }
+    .right-nav { display: flex; gap: 32px; justify-content: flex-end; align-items: center; }
+
+    main {
+      position: fixed;
+      inset: 0;
+      padding: 40px 20px 30px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .filters {
+      position: sticky;
+      top: 0;
+      display: flex;
+      gap: 10px;
+      padding: 2px 2px 8px;
+      background: var(--bg);
+      z-index: 2;
+    }
+
+    .filter-btn {
+      border: 1px solid var(--line);
+      background: transparent;
+      padding: 6px 10px;
+      font: inherit;
+      cursor: pointer;
+      border-radius: 12px;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .filter-btn:hover { border-color: var(--text); }
+
+    .filter-btn.active {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(140px, 1fr));
+      gap: 30px;
+      align-content: start;
+    }
+
+    .item {
+      display: grid;
+      row-gap: 10px;
+      margin: 3px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .item .title {
+      font-size: 12px;
+      letter-spacing: 0.2px;
+      margin: 0;
+      line-height: 1.0;
+      min-height: 14px;
+    }
+
+    .item img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+      margin: 0;
+    }
+
+    .item .caption {
+      font-size: 12px;
+      line-height: 1.0;
+      min-height: 14px;
+      visibility: hidden;
+    }
+
+    .item:hover .title {
+      visibility: hidden;
+    }
+
+    .item:hover .caption {
+      visibility: visible;
+    }
+
+    @media (max-width: 960px) {
+      .grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 20px;
+      }
+      main {
+        padding: 60px 16px 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="left-nav">
+      <div><a href="Index.html">Francesca Mirabile</a></div>
+    </div>
+    <div class="right-nav">
+      <div><a href="About.html">About</a></div>
+      <div><a href="mailto:info@francescamirabile">Contact</a></div>
+      <div><a href="Archive.html">Archive</a></div>
+    </div>
+  </header>
+  <main>
+    <div class="filters" id="tag-filters"></div>
+    <div class="grid" id="archive-grid"></div>
+  </main>
+
+  <script src="./Asset/sanity-config.js"></script>
+  <script src="./Asset/sanity-client.js"></script>
+  <script>
+    const archiveGrid = document.getElementById('archive-grid');
+    const filtersBar = document.getElementById('tag-filters');
+    const fallbackTags = ['All', 'Editorial', 'Personal', 'Commition', 'Gallery'];
+    const fallbackProjects = Array.from({length: 30}).map((_, idx) => {
+      const imgs = [
+        './img/Screenshot 2025-12-09 alle 16.45.48.png',
+        './img/Screenshot 2025-12-09 alle 16.46.01.png',
+        './img/Screenshot 2025-12-09 alle 16.46.08.png',
+        './img/Screenshot 2025-12-09 alle 16.46.13.png',
+        './img/Screenshot 2025-12-09 alle 16.46.17.png',
+        './img/Screenshot 2025-12-09 alle 16.46.22.png',
+        './img/Screenshot 2025-12-09 alle 16.46.32.png',
+        './img/Screenshot 2025-12-09 alle 16.46.36.png',
+        './img/Screenshot 2025-12-09 alle 16.46.42.png',
+        './img/Screenshot 2025-12-09 alle 16.46.45.png',
+      ];
+      const title = String(idx + 1);
+      const tag = fallbackTags[(idx % (fallbackTags.length - 1)) + 1];
+      return {
+        title,
+        img: imgs[idx % imgs.length],
+        tag,
+        slug: idx === 0 ? 'titolo-opera' : undefined,
+        caption: 'Collage + sipario: carta · Struttura: ferro e alluminio',
+      };
+    });
+
+    let tags = [...fallbackTags];
+    let projects = [...fallbackProjects];
+    let activeTag = tags[0];
+
+    const shuffle = (arr) => {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    };
+
+    const renderProjects = () => {
+      archiveGrid.innerHTML = '';
+      const filtered = shuffle([...projects]).filter((p) => activeTag === 'All' || p.tag === activeTag);
+
+      filtered.forEach((p) => {
+        const link = document.createElement(p.slug ? 'a' : 'div');
+        link.className = 'item';
+        if (p.slug) link.href = `project-1.html?slug=${encodeURIComponent(p.slug)}`;
+
+        const meta = document.createElement('div');
+        meta.className = 'title';
+        meta.textContent = p.title;
+
+        const caption = document.createElement('div');
+        caption.className = 'caption';
+        caption.textContent = p.caption || '';
+
+        const img = document.createElement('img');
+        img.src = p.img;
+        img.alt = p.title;
+
+        link.appendChild(meta);
+        link.appendChild(caption);
+        link.appendChild(img);
+        archiveGrid.appendChild(link);
+      });
+    };
+
+    const renderFilters = () => {
+      filtersBar.innerHTML = '';
+      tags.forEach((tag) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `filter-btn${tag === activeTag ? ' active' : ''}`;
+        btn.textContent = tag;
+        btn.addEventListener('click', () => {
+          activeTag = tag;
+          filtersBar.querySelectorAll('.filter-btn').forEach((b) => b.classList.remove('active'));
+          btn.classList.add('active');
+          renderProjects();
+        });
+        filtersBar.appendChild(btn);
+      });
+    };
+
+    async function loadFromSanity() {
+      try {
+        const [settings, sanityTags, sanityProjects] = await Promise.all([
+          window.SanityClient.fetch('*[_id == "siteSettings"][0]{contactEmail}'),
+          window.SanityClient.fetch('*[_type == "tag"] | order(title asc){title, slug}'),
+          window.SanityClient.fetch(
+            '*[_type == "project"] | order(order asc){order, title, slug, caption, tags[]->{title, slug}, "img": coalesce(cover.asset->url, cover.asset->_ref)}'
+          ),
+        ]);
+
+        if (settings?.contactEmail) {
+          document.querySelectorAll('a[href^="mailto:info"]').forEach((a) => {
+            a.href = `mailto:${settings.contactEmail}`;
+          });
+        }
+
+        if (Array.isArray(sanityTags) && sanityTags.length) {
+          tags = ['All', ...sanityTags.map((t) => t.title || t.slug?.current).filter(Boolean)];
+          activeTag = tags[0];
+        }
+
+        if (Array.isArray(sanityProjects) && sanityProjects.length) {
+          projects = sanityProjects.map((p) => ({
+            title: p.title || p.order,
+            img: p.img && p.img.startsWith('http') ? p.img : window.SanityClient.imageUrlFromRef(p.img),
+            tag: p.tags && p.tags[0] ? p.tags[0].title || p.tags[0].slug?.current : undefined,
+            slug: p.slug?.current,
+            caption: p.caption || '',
+          }));
+        }
+
+        renderFilters();
+        renderProjects();
+      } catch (err) {
+        console.warn('Sanity non disponibile, uso fallback locale:', err.message);
+        renderFilters();
+        renderProjects();
+      }
+    }
+
+    loadFromSanity();
+  </script>
+</body>
+</html>

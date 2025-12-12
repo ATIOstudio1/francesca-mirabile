@@ -1,0 +1,16 @@
+.DS_Store
+.git-data/
+node_modules/
+sanity/node_modules/
+.env
+.env.local
+.env.*.local
+dist/
+build/
+.parcel-cache/
+.vercel/
+.netlify/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*

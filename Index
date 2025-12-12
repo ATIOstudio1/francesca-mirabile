@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Francesca Mirabile</title>
+  <style>
+    @font-face {
+      font-family: "Helvetica Now Display";
+      src: url("./Font/HelveticaNowDisplay-Bold.woff") format("woff");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --bg: #ffffff;
+      --text: #0b0b0b;
+      --line: #cfcfcf;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Helvetica Now Display", Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      line-height: 1.2;
+      overflow: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      z-index: 3;
+      font-size: 12px;
+      padding: 0;
+    }
+
+    .left-nav {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .right-nav {
+      display: flex;
+      gap: 32px;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .split {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .split::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 1px;
+      height: 100%;
+      background: var(--line);
+      z-index: 2;
+    }
+
+    .column {
+      padding: 40px 20px 30px;
+      height: 100vh;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(200px, 1fr));
+      column-gap: 40px;
+      align-content: start;
+      row-gap: 60px;
+    }
+
+    .item {
+      display: grid;
+      row-gap: 0;
+      width: 100%;
+      max-width: none;
+      margin: 3px;
+      transform-origin: top left;
+    }
+
+    .item .meta {
+      display: grid;
+      grid-template-columns: auto auto;
+      column-gap: 16px;
+      row-gap: 4px;
+      align-items: baseline;
+      margin: 0;
+      line-height: 1.05;
+    }
+
+    .item .title {
+      font-size: 12px;
+      letter-spacing: 0.2px;
+      margin: 3px 0;
+    }
+
+    .item img {
+      width: 100%;
+      max-width: none;
+      height: auto;
+      object-fit: cover;
+      display: block;
+      margin: 0;
+    }
+
+    .item:hover {
+      transform: none;
+    }
+
+    .left-nav > div,
+    .right-nav > div {
+      margin: 3px;
+    }
+
+    @media (max-width: 960px) {
+      body {
+        height: auto;
+        overflow-y: auto;
+      }
+      .split {
+        position: static;
+        display: block;
+      }
+      .split::before {
+        display: none;
+      }
+      .column {
+        height: auto;
+        overflow: visible;
+        padding: 60px 16px 32px;
+        display: grid;
+        grid-template-columns: 1fr;
+        column-gap: 24px;
+        row-gap: 24px;
+      }
+      .column + .column {
+        border-top: 1px solid var(--line);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="left-nav">
+      <div><a href="Index.html">Francesca Mirabile</a></div>
+    </div>
+    <div class="right-nav">
+      <div><a href="About.html">About</a></div>
+      <div><a href="mailto:info@francescamirabile">Contact</a></div>
+      <div><a href="Archive.html">Archive</a></div>
+    </div>
+  </header>
+
+  <div class="split">
+    <div class="column">
+      <a class="item" href="project-1.html">
+        <div class="meta">
+          <span class="title">1</span>
+          <span>50x70cm&nbsp;&nbsp; Collage + sipario: carta<br>Struttura: ferro e alluminio</span>
+        </div>
+        <img src="./img/Screenshot 2025-12-09 alle 16.45.48.png" alt="Opera 1" data-color="#d7e7dc">
+      </a>
+
+      <div class="item">
+        <div class="meta">
+          <span class="title">2</span>
+          <span>50x70cm&nbsp;&nbsp; Collage + sipario: carta<br>Struttura: ferro e alluminio</span>
+        </div>
+        <img src="./img/Screenshot 2025-12-09 alle 16.46.01.png" alt="Opera 2" data-color="#d9d9d9">
+      </div>
+
+      <div class="item">
+        <div class="meta">
+          <span class="title">4</span>
+          <span>50x70cm&nbsp;&nbsp; Collage + sipario: carta<br>Struttura: ferro e alluminio</span>
+        </div>
+        <img src="./img/Screenshot 2025-12-09 alle 16.46.22.png" alt="Opera 4" data-color="#e9ebef">
+      </div>
+
+      <div class="item">
+        <div class="meta">
+          <span class="title">5</span>
+          <span>50x70cm&nbsp;&nbsp; Collage + sipario: carta<br>Struttura: ferro e alluminio</span>
+        </div>
+        <img src="./img/Screenshot 2025-12-09 alle 16.46.13.png" alt="Opera 5" data-color="#f3e7d6">
+      </div>
+
+      <div class="item">
+        <div class="meta">
+          <span class="title">7</span>
+          <span>50x70cm&nbsp;&nbsp; Collage + sipario: carta<br>Struttura: ferro e alluminio</span>
+        </div>
+        <img src="./img/Screenshot 2025-12-09 alle 16.46.36.png" alt="Opera 7" data-color="#e4dcd0">
+      </div>
+
+      <div class="item">
+        <div class="meta">
+          <span class="title">9</span>
+          <span>50x70cm&nbsp;&nbsp; Collage + sipario: carta<br>Struttura: ferro e alluminio</span>
+        </div>
+        <img src="./img/Screenshot 2025-12-09 alle 16.46.45.png" alt="Opera 9" data-color="#f1efe8">
+      </div>
+    </div>
+
+    <div class="column">
+      <div class="item">
+        <div class="meta">
+          <span class="title">3</span>
+          <span>50x70cm&nbsp;&nbsp; Collage + sipario: carta<br>Struttura: ferro e alluminio</span>
+        </div>
+        <img src="./img/Screenshot 2025-12-09 alle 16.46.08.png" alt="Opera 3" data-color="#f3f4f2">
+      </div>
+
+      <div class="item">
+        <div class="meta">
+          <span class="title">6</span>
+          <span>50x70cm&nbsp;&nbsp; Collage + sipario: carta<br>Struttura: ferro e alluminio</span>
+        </div>
+        <img src="./img/Screenshot 2025-12-09 alle 16.46.32.png" alt="Opera 6" data-color="#f1e6d5">
+      </div>
+
+      <div class="item">
+        <div class="meta">
+          <span class="title">8</span>
+          <span>50x70cm&nbsp;&nbsp; Collage + sipario: carta<br>Struttura: ferro e alluminio</span>
+        </div>
+        <img src="./img/Screenshot 2025-12-09 alle 16.46.17.png" alt="Opera 8" data-color="#e3e8ea">
+      </div>
+
+      <div class="item">
+        <div class="meta">
+          <span class="title">10</span>
+          <span>50x70cm&nbsp;&nbsp; Collage + sipario: carta<br>Struttura: ferro e alluminio</span>
+        </div>
+        <img src="./img/Screenshot 2025-12-09 alle 16.46.42.png" alt="Opera 10" data-color="#f0eee8">
+      </div>
+
+      <div class="item">
+        <div class="meta">
+          <span class="title">11</span>
+          <span>50x70cm&nbsp;&nbsp; Collage + sipario: carta<br>Struttura: ferro e alluminio</span>
+        </div>
+        <img src="./img/Screenshot 2025-12-09 alle 16.46.45.png" alt="Opera 11" data-color="#f1efe8">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const columns = Array.from(document.querySelectorAll('.column'));
+    const items = Array.from(document.querySelectorAll('.item'));
+
+    const shuffle = (arr) => {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    };
+
+    const redistributeItems = () => {
+      const shuffled = shuffle([...items]);
+      const mid = Math.ceil(shuffled.length / 2);
+      const left = shuffled.slice(0, mid);
+      const right = shuffled.slice(mid);
+
+      columns.forEach((col) => (col.innerHTML = ''));
+      left.forEach((item) => columns[0].appendChild(item));
+      right.forEach((item) => columns[1].appendChild(item));
+
+      assignSpans();
+    };
+
+    redistributeItems();
+
+    const defaultBg = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() || '#ffffff';
+
+    document.querySelectorAll('.item img').forEach((img) => {
+      const column = img.closest('.column');
+      const color = img.dataset.color || defaultBg;
+
+      img.addEventListener('mouseenter', () => {
+        column.style.background = color;
+      });
+
+      img.addEventListener('mouseleave', () => {
+        column.style.background = defaultBg;
+      });
+    });
+
+    function assignSpans() {
+      columns.forEach((col) => {
+        let remaining = 3;
+        Array.from(col.children).forEach((item) => {
+          const span = Math.max(1, Math.min(remaining, Math.floor(Math.random() * 3) + 1));
+          item.style.gridColumn = `span ${span}`;
+          remaining -= span;
+          if (remaining <= 0) {
+            remaining = 3;
+          }
+        });
+      });
+    }
+  </script>
+</body>
+</html>

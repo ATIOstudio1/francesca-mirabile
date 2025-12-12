@@ -1,0 +1,11 @@
+{
+  "extends": "sanity/tsconfig",
+  "compilerOptions": {
+    "baseUrl": "."
+  },
+  "include": [
+    "sanity.config.ts",
+    "schemas/**/*",
+    "seed.ndjson"
+  ]
+}

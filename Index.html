@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Francesca Mirabile</title>
+  <style>
+    @font-face {
+      font-family: "Helvetica Now Display";
+      src: url("./Font/HelveticaNowDisplay-Bold.woff") format("woff");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --bg: #ffffff;
+      --text: #0b0b0b;
+      --line: #cfcfcf;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Helvetica Now Display", Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      line-height: 1.2;
+      overflow: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      z-index: 3;
+      font-size: 12px;
+      padding: 0;
+    }
+
+    .left-nav {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .right-nav {
+      display: flex;
+      gap: 32px;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .split {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .split::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 1px;
+      height: 100%;
+      background: var(--line);
+      z-index: 2;
+    }
+
+    .column {
+      padding: 80px 16px 32px;
+      height: 100vh;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      column-gap: 32px;
+      align-content: start;
+      row-gap: 40px;
+    }
+
+    .item {
+      display: grid;
+      row-gap: 0;
+      width: 100%;
+      max-width: none;
+      margin: 3px;
+      transform-origin: top left;
+    }
+
+    .item .meta {
+      display: grid;
+      grid-template-columns: auto auto;
+      column-gap: 16px;
+      row-gap: 4px;
+      align-items: baseline;
+      margin: 0;
+      line-height: 1.05;
+    }
+
+    .item .title {
+      font-size: 12px;
+      letter-spacing: 0.2px;
+      margin: 3px 0;
+    }
+
+    .item img {
+      width: 100%;
+      max-width: none;
+      height: auto;
+      object-fit: cover;
+      display: block;
+      margin: 0;
+    }
+
+    .item:hover {
+      transform: none;
+    }
+
+    .left-nav > div,
+    .right-nav > div {
+      margin: 3px;
+    }
+
+    @media (max-width: 960px) {
+      body {
+        height: auto;
+        overflow-y: auto;
+      }
+      .split {
+        position: static;
+        display: block;
+      }
+      .split::before {
+        display: none;
+      }
+      .column {
+        height: auto;
+        overflow: visible;
+        padding: 60px 16px 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+      .column + .column {
+        border-top: 1px solid var(--line);
+      }
+      .item {
+        width: 100%;
+        max-width: none;
+      }
+      .item img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="left-nav">
+      <div><a href="Index.html">Francesca Mirabile</a></div>
+    </div>
+    <div class="right-nav">
+      <div><a href="About.html">About</a></div>
+      <div><a href="mailto:info@francescamirabile">Contact</a></div>
+      <div><a href="Archive.html">Archive</a></div>
+    </div>
+  </header>
+
+  <div class="split">
+    <div class="column" id="column-left"></div>
+    <div class="column" id="column-right"></div>
+  </div>
+
+  <script src="./Asset/sanity-config.js"></script>
+  <script src="./Asset/sanity-client.js"></script>
+  <script>
+    const columns = [document.getElementById('column-left'), document.getElementById('column-right')];
+    const defaultBg = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() || '#ffffff';
+    const fallbackProjects = [
+      {order: 1, title: '1', dimensions: '50x70cm', technique: 'Collage + sipario: carta · Struttura: ferro e alluminio', img: './img/Screenshot 2025-12-09 alle 16.45.48.png', color: '#d7e7dc', slug: 'titolo-opera'},
+      {order: 2, title: '2', dimensions: '50x70cm', technique: 'Collage + sipario: carta · Struttura: ferro e alluminio', img: './img/Screenshot 2025-12-09 alle 16.46.01.png', color: '#d9d9d9'},
+      {order: 3, title: '3', dimensions: '50x70cm', technique: 'Collage + sipario: carta · Struttura: ferro e alluminio', img: './img/Screenshot 2025-12-09 alle 16.46.08.png', color: '#f3f4f2'},
+      {order: 4, title: '4', dimensions: '50x70cm', technique: 'Collage + sipario: carta · Struttura: ferro e alluminio', img: './img/Screenshot 2025-12-09 alle 16.46.22.png', color: '#e9ebef'},
+      {order: 5, title: '5', dimensions: '50x70cm', technique: 'Collage + sipario: carta · Struttura: ferro e alluminio', img: './img/Screenshot 2025-12-09 alle 16.46.13.png', color: '#f3e7d6'},
+      {order: 6, title: '6', dimensions: '50x70cm', technique: 'Collage + sipario: carta · Struttura: ferro e alluminio', img: './img/Screenshot 2025-12-09 alle 16.46.32.png', color: '#f1e6d5'},
+      {order: 7, title: '7', dimensions: '50x70cm', technique: 'Collage + sipario: carta · Struttura: ferro e alluminio', img: './img/Screenshot 2025-12-09 alle 16.46.36.png', color: '#e4dcd0'},
+      {order: 8, title: '8', dimensions: '50x70cm', technique: 'Collage + sipario: carta · Struttura: ferro e alluminio', img: './img/Screenshot 2025-12-09 alle 16.46.17.png', color: '#e3e8ea'},
+      {order: 9, title: '9', dimensions: '50x70cm', technique: 'Collage + sipario: carta · Struttura: ferro e alluminio', img: './img/Screenshot 2025-12-09 alle 16.46.45.png', color: '#f1efe8'},
+      {order: 10, title: '10', dimensions: '50x70cm', technique: 'Collage + sipario: carta · Struttura: ferro e alluminio', img: './img/Screenshot 2025-12-09 alle 16.46.42.png', color: '#f0eee8'},
+      {order: 11, title: '11', dimensions: '50x70cm', technique: 'Collage + sipario: carta · Struttura: ferro e alluminio', img: './img/Screenshot 2025-12-09 alle 16.46.45.png', color: '#f1efe8'},
+    ];
+
+    const shuffle = (arr) => {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    };
+
+    function assignSpans() {
+      columns.forEach((col) => {
+        let remaining = 3;
+        Array.from(col.children).forEach((item) => {
+          const span = Math.max(1, Math.min(remaining, Math.floor(Math.random() * 3) + 1));
+          item.style.gridColumn = `span ${span}`;
+          remaining -= span;
+          if (remaining <= 0) {
+            remaining = 3;
+          }
+        });
+      });
+    }
+
+    function attachHoverBackgrounds() {
+      document.querySelectorAll('.item img').forEach((img) => {
+        const column = img.closest('.column');
+        const color = img.dataset.color || defaultBg;
+        img.addEventListener('mouseenter', () => {
+          if (column) column.style.background = color;
+        });
+        img.addEventListener('mouseleave', () => {
+          if (column) column.style.background = defaultBg;
+        });
+      });
+    }
+
+    const createItem = (project) => {
+      const link = document.createElement(project.slug ? 'a' : 'div');
+      link.className = 'item';
+      if (project.slug) {
+        link.href = `project-1.html?slug=${encodeURIComponent(project.slug)}`;
+      }
+
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+
+      const title = document.createElement('span');
+      title.className = 'title';
+      title.textContent = project.title || project.order || '';
+
+      const caption = document.createElement('span');
+      caption.innerHTML = `${project.dimensions || ''}&nbsp;&nbsp; ${project.technique || ''}`;
+
+      meta.appendChild(title);
+      meta.appendChild(caption);
+
+      const img = document.createElement('img');
+      img.src = project.img;
+      img.alt = project.title || 'Opera';
+      if (project.color) img.dataset.color = project.color;
+
+      link.appendChild(meta);
+      link.appendChild(img);
+      return link;
+    };
+
+    const renderProjects = (projects) => {
+      const nodes = projects.map(createItem);
+      const shuffled = shuffle([...nodes]);
+      const mid = Math.ceil(shuffled.length / 2);
+      const left = shuffled.slice(0, mid);
+      const right = shuffled.slice(mid);
+      columns.forEach((col) => (col.innerHTML = ''));
+      left.forEach((item) => columns[0].appendChild(item));
+      right.forEach((item) => columns[1].appendChild(item));
+      assignSpans();
+      attachHoverBackgrounds();
+    };
+
+    async function loadFromSanity() {
+      try {
+        const [settings, projects] = await Promise.all([
+          window.SanityClient.fetch('*[_id == "siteSettings"][0]{siteTitle, contactEmail}'),
+          window.SanityClient.fetch(
+            '*[_type == "project"] | order(order asc){order, title, slug, dimensions, technique, "img": coalesce(cover.asset->url, cover.asset->_ref), "color": cover.asset->metadata.palette.dominant.background}'
+          ),
+        ]);
+
+        if (settings?.contactEmail) {
+          document.querySelectorAll('a[href^="mailto:info"]').forEach((a) => {
+            a.href = `mailto:${settings.contactEmail}`;
+          });
+        }
+
+        const mapped = Array.isArray(projects)
+          ? projects.map((p) => ({
+              ...p,
+              title: p.title || p.order,
+              img: p.img && p.img.startsWith('http')
+                ? p.img
+                : window.SanityClient.imageUrlFromRef(p.img),
+            }))
+          : [];
+
+        if (mapped.length) {
+          renderProjects(mapped);
+          return;
+        }
+      } catch (err) {
+        console.warn('Sanity non disponibile, uso fallback locale:', err.message);
+      }
+      renderProjects(fallbackProjects);
+    }
+
+    loadFromSanity();
+  </script>
+</body>
+</html>
