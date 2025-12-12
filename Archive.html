@@ -204,9 +204,10 @@
       const filtered = shuffle([...projects]).filter((p) => activeTag === 'All' || p.tag === activeTag);
 
       filtered.forEach((p) => {
-        const link = document.createElement(p.slug ? 'a' : 'div');
+        const hasSlug = typeof p.slug === 'string' && p.slug.length > 0;
+        const link = document.createElement(hasSlug ? 'a' : 'div');
         link.className = 'item';
-        if (p.slug) link.href = `project-1.html?slug=${encodeURIComponent(p.slug)}`;
+        if (hasSlug) link.href = `project-1.html?slug=${encodeURIComponent(p.slug)}`;
 
         const meta = document.createElement('div');
         meta.className = 'title';
@@ -270,7 +271,7 @@
             title: p.title || p.order,
             img: p.img && p.img.startsWith('http') ? p.img : window.SanityClient.imageUrlFromRef(p.img),
             tag: p.tags && p.tags[0] ? p.tags[0].title || p.tags[0].slug?.current : undefined,
-            slug: p.slug?.current,
+            slug: p.slug?.current || '',
             caption: p.caption || '',
           }));
         }

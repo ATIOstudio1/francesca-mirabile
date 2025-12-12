@@ -231,7 +231,7 @@
     const descEl = document.getElementById('project-description');
     const creditsEl = document.getElementById('project-credits');
     const params = new URLSearchParams(window.location.search);
-    const slug = params.get('slug') || 'titolo-opera';
+    const slug = params.get('slug');
 
     const fallbackGallery = [
       {title: '1', img: './img/Screenshot 2025-12-09 alle 16.46.32.png'},
@@ -299,6 +299,12 @@
     };
 
     async function loadFromSanity() {
+      if (!slug) {
+        descEl.innerHTML = 'Nessun progetto selezionato.';
+        renderCredits(fallbackCredits);
+        renderGallery(fallbackGallery);
+        return;
+      }
       try {
         const [settings, project] = await Promise.all([
           window.SanityClient.fetch('*[_id == "siteSettings"][0]{contactEmail}'),

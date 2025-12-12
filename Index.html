@@ -256,9 +256,10 @@
     }
 
     const createItem = (project) => {
-      const link = document.createElement(project.slug ? 'a' : 'div');
+      const hasSlug = typeof project.slug === 'string' && project.slug.length > 0;
+      const link = document.createElement(hasSlug ? 'a' : 'div');
       link.className = 'item';
-      if (project.slug) {
+      if (hasSlug) {
         link.href = `project-1.html?slug=${encodeURIComponent(project.slug)}`;
       }
 
@@ -317,6 +318,7 @@
           ? projects.map((p) => ({
               ...p,
               title: p.title || p.order,
+              slug: p.slug?.current || '',
               img: p.img && p.img.startsWith('http')
                 ? p.img
                 : window.SanityClient.imageUrlFromRef(p.img),
