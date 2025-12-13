@@ -271,7 +271,7 @@
 
       const title = document.createElement('span');
       title.className = 'title';
-      title.textContent = project.title || project.order || '';
+      title.textContent = project.label || project.order || '';
 
       const caption = document.createElement('span');
       caption.innerHTML = `${project.dimensions || ''}&nbsp;&nbsp; ${project.technique || ''}`;
@@ -317,15 +317,20 @@
           });
         }
 
+        const stripOpera = (txt) => (txt || '').replace(/^\s*Opera\s*/i, '').trim();
         const mapped = Array.isArray(projects)
-          ? projects.map((p) => ({
-              ...p,
-              title: p.title || p.order,
-              slug: p.slug?.current || '',
-              img: p.img && p.img.startsWith('http')
-                ? p.img
-                : window.SanityClient.imageUrlFromRef(p.img),
-            }))
+          ? projects.map((p) => {
+              const label = p.order ? String(p.order) : stripOpera(p.title || '');
+              return {
+                ...p,
+                title: p.title || p.order,
+                label,
+                slug: p.slug?.current || '',
+                img: p.img && p.img.startsWith('http')
+                  ? p.img
+                  : window.SanityClient.imageUrlFromRef(p.img),
+              };
+            })
           : [];
 
         if (mapped.length) {

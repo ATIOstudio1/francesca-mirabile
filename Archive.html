@@ -237,7 +237,7 @@
 
         const meta = document.createElement('div');
         meta.className = 'title';
-        meta.textContent = p.title;
+        meta.textContent = p.label || p.title || '';
 
         const caption = document.createElement('div');
         caption.className = 'caption';
@@ -293,8 +293,10 @@
         }
 
         if (Array.isArray(sanityProjects) && sanityProjects.length) {
+          const stripOpera = (txt) => (txt || '').replace(/^\s*Opera\s*/i, '').trim();
           projects = sanityProjects.map((p) => ({
             title: p.title || p.order,
+            label: p.order ? String(p.order) : stripOpera(p.title || ''),
             img: p.img && p.img.startsWith('http') ? p.img : window.SanityClient.imageUrlFromRef(p.img),
             tag: p.tags && p.tags[0] ? p.tags[0].title || p.tags[0].slug?.current : undefined,
             slug: p.slug?.current || '',
