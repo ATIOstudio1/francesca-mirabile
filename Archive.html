@@ -64,9 +64,17 @@
       padding: 2px 2px 8px;
       background: var(--bg);
       z-index: 2;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
+
+    .filters::-webkit-scrollbar {
+      display: none;
     }
 
     .filter-btn {
+      flex: 0 0 auto;
       border: 1px solid var(--line);
       background: transparent;
       padding: 6px 10px;
@@ -74,6 +82,7 @@
       cursor: pointer;
       border-radius: 12px;
       transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      color: inherit;
     }
 
     .filter-btn:hover { border-color: var(--text); }
@@ -137,6 +146,11 @@
       }
       main {
         padding: 60px 16px 40px;
+      }
+      .filters {
+        margin-left: -2px;
+        margin-right: -2px;
+        padding: 2px 2px 8px;
       }
     }
   </style>
